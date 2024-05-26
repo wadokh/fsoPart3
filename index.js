@@ -57,9 +57,13 @@ let persons = [
 
   app.get('/api/info',(request, response)=>{
     let currentTime=new Date()
-    response.send(`<p>Phonebook has info for ${persons.length} people
+    Person.find({})
+      .then(persons => {
+        response.send(`<p>Phonebook has info for ${persons.length} people
                 <br>
                 ${(currentTime)}</p>`)
+      })
+    
   })
 
   app.get('/api/persons/:id', (request, response, next) => {
@@ -113,6 +117,20 @@ let persons = [
       console.log(typeof(savedPerson.id));
       response.json(savedPerson)
     })
+  })
+
+  app.put('/api/persons/:id', (request, response, next)=>{
+    const body = request.body
+
+    const person = {
+      name: body.name,
+      number: body.number
+    }
+    Person.findByIdAndUpdate(request.params.id, person, {new: true})
+      .then(updatedPerson => {
+        response.json(updatedPerson)
+      })
+      .catch(error => next(error))
   })
 
   const unknownEndpoint = (request, response) => {
