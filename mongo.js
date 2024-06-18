@@ -12,28 +12,28 @@ const url =
 
 mongoose.set('strictQuery',false)
 
-if (process.argv.length==3){
-mongoose.connect(url)
+if (process.argv.length===3){
+  mongoose.connect(url)
 
-const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-})
+  const personSchema = new mongoose.Schema({
+    name: String,
+    number: String,
+  })
 
-const Person = mongoose.model('Person', personSchema)
+  const Person = mongoose.model('Person', personSchema)
 
-// const note = new Note({
-//   content: 'Afraid not',
-//   important: false,
-// })
+  // const note = new Note({
+  //   content: 'Afraid not',
+  //   important: false,
+  // })
 
-// note.save().then(result => {
-//   console.log(result);
-//   console.log('note saved!')
-//   mongoose.connection.close()
-// })
+  // note.save().then(result => {
+  //   console.log(result);
+  //   console.log('note saved!')
+  //   mongoose.connection.close()
+  // })
 
-Person.find({}).then(result => {
+  Person.find({}).then(result => {
     result.forEach(person => {
       console.log(person)
     })
@@ -41,24 +41,24 @@ Person.find({}).then(result => {
   })
 }
 
-if(process.argv.length==5){
-    mongoose.connect(url)
+if(process.argv.length===5){
+  mongoose.connect(url)
 
-const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-})
+  const personSchema = new mongoose.Schema({
+    name: String,
+    number: String,
+  })
 
-const Person = mongoose.model('Person', personSchema)
+  const Person = mongoose.model('Person', personSchema)
 
-const person = new Person({
-  name: process.argv[3],
-  number: process.argv[4],
-})
+  const person = new Person({
+    name: process.argv[3],
+    number: process.argv[4],
+  })
 
-person.save().then(result => {
-  console.log(result);
-  console.log('number saved!')
-  mongoose.connection.close()
-})
+  person.save().then(result => {
+    console.log(result)
+    console.log('number saved!')
+    mongoose.connection.close()
+  })
 }
